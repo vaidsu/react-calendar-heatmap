@@ -213,7 +213,8 @@ class CalendarHeatmap extends React.Component {
             return null;
         }
         const [x, y] = this.getSquareCoordinates(dayIndex);
-        return (
+        const { reRenderSVG } = this.props;
+        const rect = (
             <rect
                 key={index}
                 width={SQUARE_SIZE}
@@ -229,6 +230,8 @@ class CalendarHeatmap extends React.Component {
                 {...this.getTooltipDataAttrsForIndex(index)}
             />
         );
+
+        return reRenderSVG ? reRenderSVG(rect) : rect;
     }
 
     renderWeek(weekIndex) {
