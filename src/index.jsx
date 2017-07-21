@@ -214,6 +214,8 @@ class CalendarHeatmap extends React.Component {
         }
         const [x, y] = this.getSquareCoordinates(dayIndex);
         const { reRenderSVG } = this.props;
+        const { valueCache } = this.state;
+
         const rect = (
             <rect
                 key={index}
@@ -231,7 +233,9 @@ class CalendarHeatmap extends React.Component {
             />
         );
 
-        return reRenderSVG ? reRenderSVG(rect) : rect;
+        return reRenderSVG && this.getValueForIndex(index)
+            ? reRenderSVG(rect, this.getValueForIndex(index), valueCache)
+            : rect;
     }
 
     renderWeek(weekIndex) {
@@ -312,6 +316,7 @@ CalendarHeatmap.propTypes = {
     titleForValue: PropTypes.func, // function which returns title text for value
     classForValue: PropTypes.func, // function which returns html class for value
     onClick: PropTypes.func, // callback function when a square is clicked
+    reRenderSVG: PropTypes.func, // function which allows user to render the rect svg themselves with data cache value
 };
 
 CalendarHeatmap.defaultProps = {
