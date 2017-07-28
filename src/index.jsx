@@ -199,9 +199,9 @@ class CalendarHeatmap extends React.Component {
         ];
     }
 
-    handleClick(value) {
+    handleClick(value, props) {
         if (this.props.onClick) {
-            this.props.onClick(value);
+            this.props.onClick(value, props);
         }
     }
 
@@ -227,7 +227,8 @@ class CalendarHeatmap extends React.Component {
                 className={this.getClassNameForIndex(index)}
                 onClick={this.handleClick.bind(
                     this,
-                    this.getValueForIndex(index)
+                    this.getValueForIndex(index),
+                    this.props
                 )}
                 {...this.getTooltipDataAttrsForIndex(index)}
             />
